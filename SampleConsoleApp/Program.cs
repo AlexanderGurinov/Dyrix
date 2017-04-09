@@ -20,7 +20,10 @@ namespace SampleConsoleApp
             
             using (var dynamics = await Dynamics.CreateAsync(resource, directoryId, clientId, clientSecret))
             {
-                Console.WriteLine(await dynamics.GetStringAsync("WhoAmI()"));
+                for (var i = 0; i < 10; i++)
+                {
+                    Console.WriteLine(await dynamics.GetStringAsync("WhoAmI()"));
+                }
             }
         }
     }
