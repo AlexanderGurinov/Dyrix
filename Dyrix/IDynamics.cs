@@ -6,6 +6,6 @@ namespace Dyrix
 {
     public interface IDynamics : IDisposable
     {
-        Task<JObject> GetStringAsync(string request);
+        Task<JObject> GetJsonAsync(string request);
     }
 }
