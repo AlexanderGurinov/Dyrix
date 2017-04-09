@@ -1,7 +1,18 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp1.1;net461;netstandard1.6</TargetFrameworks>
+    <TargetFramework>netstandard1.6</TargetFramework>
+    <PackageId>Dyrix</PackageId>
+    <PackageVersion>1.0.0</PackageVersion>
+    <Authors>Alexander Gurinov</Authors>
+    <Description>Dynamics 365 for Net Core</Description>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageReleaseNotes>First release</PackageReleaseNotes>
+    <Copyright>Copyright 2017 (c) Alexander Gurinov. All rights reserved.</Copyright>
+    <PackageTags>crm dynamics 365</PackageTags>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <RepositoryUrl></RepositoryUrl>
+    <PackageProjectUrl>https://github.com/AlexanderGurinov/Dyrix</PackageProjectUrl>
   </PropertyGroup>
 
   <ItemGroup>
@@ -9,9 +20,4 @@
     <PackageReference Include="Newtonsoft.Json" Version="10.0.2" />
   </ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'net461'">
-    <PackageReference Include="Microsoft.Net.Http">
-      <Version>2.2.29</Version>
-    </PackageReference>
-  </ItemGroup>
 </Project>
