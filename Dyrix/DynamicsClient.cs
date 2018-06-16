@@ -59,6 +59,15 @@ namespace Dyrix
         private Task<(IReadOnlyDictionary<string, IEnumerable<string>>, JObject)> SendAsync(string method, string uri, IReadOnlyDictionary<string, string> headers, JObject content = null) =>
              SendAsync(method, uri, headers.ToDictionary(i => i.Key, i => new[] { i.Value }.AsEnumerable()), content);
 
+        public async Task<JObject> GetAsync(string setName, Action<IQueryBuilder> configureDelegate)
+        {
+            var queryBuilder = new QueryBuilder();
+            configureDelegate(queryBuilder);
+            var query = queryBuilder.Build();
+            var (_, jObject) = await SendAsync("Get", $"{setName}?{query}");
+            return jObject;
+        }
+
         public async Task<(IReadOnlyDictionary<string, IEnumerable<string>>, JObject)> SendAsync(string method, string uri, IReadOnlyDictionary<string, IEnumerable<string>> headers = null, JObject content = null)
         {
             _logger?.LogTrace(uri);
