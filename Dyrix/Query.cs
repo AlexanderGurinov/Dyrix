@@ -3,27 +3,27 @@ using System.Collections.Generic;
 
 namespace Dyrix
 {
-    internal sealed class QueryBuilder : IQueryBuilder
+    internal sealed class Query : IQuery
     {
         private IEnumerable<string> _columns;
         private int? _topCount;
 
-        public IQueryBuilder Select(IEnumerable<string> columns)
+        public IQuery Select(IEnumerable<string> columns)
         {
             _columns = columns ?? throw new ArgumentNullException(nameof(columns));
             return this;
         }
 
-        public IQueryBuilder Top(int count)
+        public IQuery Select(params string[] columns)
         {
-            _topCount = count;
+            _columns = columns ?? throw new ArgumentNullException(nameof(columns));
             return this;
         }
 
-        private IEnumerable<string> GetParts()
+        public IQuery Top(int count)
         {
-            yield return $"$select={string.Join(",", _columns)}";
-
+            _topCount = count;
+            return this;
         }
 
         public string Build()
