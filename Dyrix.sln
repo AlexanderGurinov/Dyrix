@@ -5,7 +5,9 @@ VisualStudioVersion = 15.0.26228.4
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dyrix", "Dyrix\Dyrix.csproj", "{232A78C1-F3D8-4605-9EA1-EDE1C1E9936F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dyrix.Tests", "Dyrix.Tests\Dyrix.Tests.csproj", "{A55B9A25-3374-4FAC-A6C2-0A5E8765A85B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dyrix.Tests", "Dyrix.Tests\Dyrix.Tests.csproj", "{A55B9A25-3374-4FAC-A6C2-0A5E8765A85B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tokenizer", "Tokenizer\Tokenizer.csproj", "{591C4DC9-EABF-498F-8BC7-E97E9205D91B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{A55B9A25-3374-4FAC-A6C2-0A5E8765A85B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A55B9A25-3374-4FAC-A6C2-0A5E8765A85B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A55B9A25-3374-4FAC-A6C2-0A5E8765A85B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{591C4DC9-EABF-498F-8BC7-E97E9205D91B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{591C4DC9-EABF-498F-8BC7-E97E9205D91B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{591C4DC9-EABF-498F-8BC7-E97E9205D91B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{591C4DC9-EABF-498F-8BC7-E97E9205D91B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
