@@ -25,7 +25,7 @@ namespace Tokenizer
 
             var result = await context.AcquireTokenAsync(resource, credential).ConfigureAwait(false);
 
-            Console.WriteLine("Token:");
+            Console.WriteLine($"Token expires on {result.ExpiresOn}:");
             Console.WriteLine(result.AccessToken);
 
             Console.ReadKey(true);
