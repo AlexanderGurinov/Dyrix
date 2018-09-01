@@ -1,6 +1,6 @@
 ﻿namespace Dyrix
 {
-    public sealed class DynamicsClientOptions
+    public sealed class DynamicsContextOptions
     {
         public string ApiVersion { get; set; }
         public string ClientId { get; set; }
