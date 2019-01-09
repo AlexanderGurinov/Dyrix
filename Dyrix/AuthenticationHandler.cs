@@ -13,16 +13,13 @@ namespace Dyrix
         private readonly string _resource;
         private readonly ClientCredential _credential;
 
-        public AuthenticationHandler(AuthenticationContext context, string resource, ClientCredential credential, HttpMessageHandler innerHandler) : base(innerHandler)
+        public AuthenticationHandler(AuthenticationContext context, string resource, ClientCredential credential)
         {
             _context = context ?? throw new ArgumentNullException(nameof(context));
 
-            if (string.IsNullOrWhiteSpace(resource))
-            {
-                throw new ArgumentNullException(nameof(resource));
-            }
-
+            if (string.IsNullOrWhiteSpace(resource)) throw new ArgumentNullException(nameof(resource));
             _resource = resource;
+
             _credential = credential ?? throw new ArgumentNullException(nameof(credential));
         }
 
