@@ -14,6 +14,8 @@ namespace Dyrix
         public DynamicsClient(HttpClient client) =>
             _client = client ?? throw new ArgumentNullException(nameof(client));
 
+        #region Send
+
         public async Task<(int, IEnumerable<KeyValuePair<string, IEnumerable<string>>>, string)> SendAsync(string method, string uri, IEnumerable<KeyValuePair<string, IEnumerable<string>>> headers = null, string content = null)
         {
             using (var request = new HttpRequestMessage(new HttpMethod(method), uri))
@@ -48,16 +50,38 @@ namespace Dyrix
         public Task<(int, IEnumerable<KeyValuePair<string, IEnumerable<string>>>, string)> SendAsync(string method, string uri, string content) =>
              SendAsync(method, uri, new Dictionary<string, IEnumerable<string>>(), content);
 
+        #endregion
+
+        #region Get
+
         public Task<(int, IEnumerable<KeyValuePair<string, IEnumerable<string>>>, string)> GetAsync(string uri, IEnumerable<KeyValuePair<string, IEnumerable<string>>> headers = null, string content = null) =>
             SendAsync(nameof(HttpMethod.Get), uri, headers, content);
 
         public Task<(int, IEnumerable<KeyValuePair<string, IEnumerable<string>>>, string)> GetAsync(string uri, IEnumerable<KeyValuePair<string, string>> headers, string content = null) =>
-            SendAsync(nameof(HttpMethod.Get), uri, headers.ToDictionary(i => i.Key, i => new[] { i.Value }.AsEnumerable()), content);
+            SendAsync(nameof(HttpMethod.Get), uri, headers, content);
 
         public Task<(int, IEnumerable<KeyValuePair<string, IEnumerable<string>>>, string)> GetAsync(string uri, string header, string value, string content = null) =>
-            SendAsync(nameof(HttpMethod.Get), uri, new[] { new KeyValuePair<string, IEnumerable<string>>(header, new[] { value }) }, content);
-        
+            SendAsync(nameof(HttpMethod.Get), uri, header, value, content);
+
         public Task<(int, IEnumerable<KeyValuePair<string, IEnumerable<string>>>, string)> GetAsync(string uri, string content) =>
-            SendAsync(nameof(HttpMethod.Get), uri, new Dictionary<string, IEnumerable<string>>(), content);
+            SendAsync(nameof(HttpMethod.Get), uri, content);
+
+        #endregion
+
+        #region Post
+
+        public Task<(int, IEnumerable<KeyValuePair<string, IEnumerable<string>>>, string)> PostAsync(string uri, IEnumerable<KeyValuePair<string, IEnumerable<string>>> headers = null, string content = null) =>
+            SendAsync(nameof(HttpMethod.Post), uri, headers, content);
+
+        public Task<(int, IEnumerable<KeyValuePair<string, IEnumerable<string>>>, string)> PostAsync(string uri, IEnumerable<KeyValuePair<string, string>> headers, string content = null) =>
+            SendAsync(nameof(HttpMethod.Post), uri, headers, content);
+
+        public Task<(int, IEnumerable<KeyValuePair<string, IEnumerable<string>>>, string)> PostAsync(string uri, string header, string value, string content = null) =>
+            SendAsync(nameof(HttpMethod.Post), uri, header, value, content);
+
+        public Task<(int, IEnumerable<KeyValuePair<string, IEnumerable<string>>>, string)> PostAsync(string uri, string content) =>
+            SendAsync(nameof(HttpMethod.Post), uri, content);
+
+        #endregion
     }
 }

@@ -14,10 +14,17 @@ namespace Dyrix.Tests
         }
 
         [Fact]
-        public async Task Get()
+        public async Task WhoAmI()
         {
             var (code, _, _) = await _dynamicsClient.GetAsync("WhoAmI()");
             Assert.Equal(200, code);
         }
+
+        //[Fact]
+        //public async Task CallAction()
+        //{
+        //    var (code, _, _) = await _dynamicsClient.PostAsync("sb_SyncErpContact", "{\"Json\":\"Some Json\"}");
+        //    Assert.Equal(204, code);
+        //}
     }
 }

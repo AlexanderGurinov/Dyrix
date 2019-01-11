@@ -14,5 +14,10 @@ namespace Dyrix
         Task<(int, IEnumerable<KeyValuePair<string, IEnumerable<string>>>, string)> GetAsync(string uri, IEnumerable<KeyValuePair<string, string>> headers, string content = null);
         Task<(int, IEnumerable<KeyValuePair<string, IEnumerable<string>>>, string)> GetAsync(string uri, string header, string value, string content = null);
         Task<(int, IEnumerable<KeyValuePair<string, IEnumerable<string>>>, string)> GetAsync(string uri, string content);
+
+        Task<(int, IEnumerable<KeyValuePair<string, IEnumerable<string>>>, string)> PostAsync(string uri, IEnumerable<KeyValuePair<string, IEnumerable<string>>> headers = null, string content = null);
+        Task<(int, IEnumerable<KeyValuePair<string, IEnumerable<string>>>, string)> PostAsync(string uri, IEnumerable<KeyValuePair<string, string>> headers, string content = null);
+        Task<(int, IEnumerable<KeyValuePair<string, IEnumerable<string>>>, string)> PostAsync(string uri, string header, string value, string content = null);
+        Task<(int, IEnumerable<KeyValuePair<string, IEnumerable<string>>>, string)> PostAsync(string uri, string content);
     }
 }
