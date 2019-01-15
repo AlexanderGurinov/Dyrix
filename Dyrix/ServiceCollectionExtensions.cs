@@ -9,17 +9,21 @@ namespace Dyrix
 {
     public static class ServiceCollectionExtensions
     {
-        public static IServiceCollection AddDynamicsClient(this IServiceCollection collection)
+        public static IServiceCollection AddDynamicsClient(this IServiceCollection collection, Action<DynamicsClientOptions> configure = default)
         {
             if (collection == null) throw new ArgumentNullException(nameof(collection));
 
-            var configuration = collection.BuildServiceProvider()
-                .GetRequiredService<IConfiguration>();
+            var section = collection.BuildServiceProvider()
+                .GetService<IConfiguration>()
+                .GetSection(nameof(DynamicsClientOptions));
 
-            collection.Configure<DynamicsClientOptions>(configuration.GetSection(nameof(DynamicsClientOptions)));
+            collection.Configure<DynamicsClientOptions>(section);
 
             var options = collection.BuildServiceProvider()
-                .GetRequiredService<IOptions<DynamicsClientOptions>>().Value;
+                 .GetService<IOptions<DynamicsClientOptions>>()
+                 .Value;
+
+            configure?.Invoke(options);
 
             collection.AddHttpClient<IDynamicsClient, DynamicsClient>((provider, client) =>
             {
@@ -37,29 +41,5 @@ namespace Dyrix
 
             return collection;
         }
-
-        //public static IServiceCollection AddDynamicsClient(this IServiceCollection serviceCollection, IConfiguration configuration = null)
-        //{
-        //    if (serviceCollection == null) throw new ArgumentNullException(nameof(serviceCollection));
-
-        //    return serviceCollection.AddDynamicsClient((provider, options) =>
-        //    {
-        //        (configuration ?? provider.GetService<IConfiguration>())
-        //            .Bind(nameof(DynamicsClientOptions), options);
-        //    });
-        //}
-
-        //public static IServiceCollection AddDynamicsClient(this IServiceCollection collection, Action<DynamicsClientOptions> configureOptions)
-        //{
-        //    if (collection == null) throw new ArgumentNullException(nameof(collection));
-        //    if (configureOptions == null) throw new ArgumentNullException(nameof(configureOptions));
-
-        //    return collection.AddDynamicsClient((_, options) => configureOptions(options));
-        //}
-
-        //private static IServiceCollection AddDynamicsClient(this IServiceCollection collection, Action<IServiceProvider, DynamicsClientOptions> action) => collection
-        //    .AddSingleton<IConfigureOptions<DynamicsClientOptions>>(
-        //        provider => new ConfigureNamedOptions<DynamicsClientOptions>(Options.DefaultName, options => action(provider, options)))
-        //    .AddSingleton<IDynamicsClient, DynamicsClient>();
     }
 }
