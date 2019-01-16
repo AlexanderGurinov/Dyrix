@@ -20,16 +20,16 @@ namespace Dyrix
                     .GetService<IConfiguration>();
 
                 if (configuration != default)
-                {                
+                {
                     var section = configuration.GetSection(nameof(DynamicsClientOptions));
-                    configure = optionsBuilder => optionsBuilder.UseConfiguration(section);
+                    configure = optionsBuilder => optionsBuilder.AddConfiguration(section);
                 }
             }
 
             configure?.Invoke(builder);
             var options = builder.Options;
 
-            collection.AddHttpClient<IDynamicsClient, DynamicsClient>((provider, client) =>
+            collection.AddHttpClient<IDynamicsClient, DynamicsClient>(client =>
             {
                 client.BaseAddress = new Uri($"{options.Resource}/api/data/v{options.ApiVersion}/");
                 client.DefaultRequestHeaders.Add("OData-MaxVersion", "4.0");

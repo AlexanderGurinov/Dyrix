@@ -5,7 +5,7 @@ namespace Dyrix
 {
     public static class DynamicsClientOptionsBuilderExtensions
     {
-        public static DynamicsClientOptionsBuilder UseConfiguration(this DynamicsClientOptionsBuilder builder, IConfiguration configuration)
+        public static DynamicsClientOptionsBuilder AddConfiguration(this DynamicsClientOptionsBuilder builder, IConfiguration configuration)
         {
             if (builder == null) throw new ArgumentNullException(nameof(builder));
             if (configuration == null) throw new ArgumentNullException(nameof(configuration));
