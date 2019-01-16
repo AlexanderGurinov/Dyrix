@@ -10,8 +10,8 @@
     <Copyright>Copyright 2019 (c) Alexander Gurinov. All rights reserved.</Copyright>
     <PackageTags>crm dynamics 365</PackageTags>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <RepositoryUrl></RepositoryUrl>
     <PackageProjectUrl>https://github.com/AlexanderGurinov/Dyrix</PackageProjectUrl>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <LangVersion>latest</LangVersion>
     <Version>2.0.3</Version>
   </PropertyGroup>
@@ -21,6 +21,10 @@
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.2.0" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="2.2.0" />
     <PackageReference Include="Microsoft.IdentityModel.Clients.ActiveDirectory" Version="3.13.7" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-beta2-18618-05">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
 
 </Project>
