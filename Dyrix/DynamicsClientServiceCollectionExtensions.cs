@@ -2,28 +2,32 @@
 using System.Net.Http.Headers;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Clients.ActiveDirectory;
 
 namespace Dyrix
 {
-    public static class ServiceCollectionExtensions
+    public static class DynamicsClientServiceCollectionExtensions
     {
-        public static IServiceCollection AddDynamicsClient(this IServiceCollection collection, Action<DynamicsClientOptions> configure = default)
+        public static IServiceCollection AddDynamicsClient(this IServiceCollection collection, Action<DynamicsClientOptionsBuilder> configure = default)
         {
             if (collection == null) throw new ArgumentNullException(nameof(collection));
 
-            var section = collection.BuildServiceProvider()
-                .GetService<IConfiguration>()
-                .GetSection(nameof(DynamicsClientOptions));
+            var builder = new DynamicsClientOptionsBuilder(new DynamicsClientOptions());
 
-            collection.Configure<DynamicsClientOptions>(section);
+            if (configure == default)
+            {
+                var configuration = collection.BuildServiceProvider()
+                    .GetService<IConfiguration>();
 
-            var options = collection.BuildServiceProvider()
-                 .GetService<IOptions<DynamicsClientOptions>>()
-                 .Value;
+                if (configuration != default)
+                {                
+                    var section = configuration.GetSection(nameof(DynamicsClientOptions));
+                    configure = optionsBuilder => optionsBuilder.UseConfiguration(section);
+                }
+            }
 
-            configure?.Invoke(options);
+            configure?.Invoke(builder);
+            var options = builder.Options;
 
             collection.AddHttpClient<IDynamicsClient, DynamicsClient>((provider, client) =>
             {
