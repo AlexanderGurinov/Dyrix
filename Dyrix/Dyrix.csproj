@@ -5,6 +5,7 @@
     <PackageId>Dyrix</PackageId>
     <Authors>Alexander Gurinov</Authors>
     <Description>Dynamics 365 for Net Core</Description>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageReleaseNotes>Second release</PackageReleaseNotes>
     <Copyright>Copyright 2019 (c) Alexander Gurinov. All rights reserved.</Copyright>
