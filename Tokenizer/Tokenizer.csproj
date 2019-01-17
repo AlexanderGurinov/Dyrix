@@ -10,7 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.IdentityModel.Clients.ActiveDirectory" Version="3.19.8" />
+    <ProjectReference Include="..\Dyrix\Dyrix.csproj" />
   </ItemGroup>
 
 </Project>

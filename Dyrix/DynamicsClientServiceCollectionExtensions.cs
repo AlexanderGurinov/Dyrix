@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Net.Http.Headers;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Clients.ActiveDirectory;
 
@@ -8,26 +7,25 @@ namespace Dyrix
 {
     public static class DynamicsClientServiceCollectionExtensions
     {
-        public static IServiceCollection AddDynamicsClient(this IServiceCollection collection, Action<DynamicsClientOptionsBuilder> configure = default)
+        public static IServiceCollection AddDynamicsClient(this IServiceCollection collection, Action<DynamicsClientOptions> configure)
         {
             if (collection == null) throw new ArgumentNullException(nameof(collection));
+            if (configure == null) throw new ArgumentNullException(nameof(configure));
 
-            var builder = new DynamicsClientOptionsBuilder(new DynamicsClientOptions());
+            var options = new DynamicsClientOptions();
+            configure(options);
+            return collection.AddDynamicsClient(options);
+        }
 
-            if (configure == default)
-            {
-                var configuration = collection.BuildServiceProvider()
-                    .GetService<IConfiguration>();
+        private static IServiceCollection AddDynamicsClient(this IServiceCollection collection, DynamicsClientOptions options)
+        {
+            if (options == null) throw new ArgumentNullException(nameof(options));
 
-                if (configuration != default)
-                {
-                    var section = configuration.GetSection(nameof(DynamicsClientOptions));
-                    configure = optionsBuilder => optionsBuilder.AddConfiguration(section);
-                }
-            }
-
-            configure?.Invoke(builder);
-            var options = builder.Options;
+            if (string.IsNullOrWhiteSpace(options.ApiVersion)) throw new ArgumentNullException(nameof(options.ApiVersion));
+            if (string.IsNullOrWhiteSpace(options.ClientId)) throw new ArgumentNullException(nameof(options.ClientId));
+            if (string.IsNullOrWhiteSpace(options.ClientSecret)) throw new ArgumentNullException(nameof(options.ClientSecret));
+            if (string.IsNullOrWhiteSpace(options.DirectoryId)) throw new ArgumentNullException(nameof(options.DirectoryId));
+            if (string.IsNullOrWhiteSpace(options.Resource)) throw new ArgumentNullException(nameof(options.Resource));
 
             collection.AddHttpClient<IDynamicsClient, DynamicsClient>(client =>
             {
