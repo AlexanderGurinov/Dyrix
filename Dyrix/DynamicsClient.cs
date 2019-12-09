@@ -18,27 +18,23 @@ namespace Dyrix
 
         public async Task<(int, IEnumerable<KeyValuePair<string, IEnumerable<string>>>, string)> SendAsync(string method, string uri, IEnumerable<KeyValuePair<string, IEnumerable<string>>> headers = null, string content = null)
         {
-            using (var request = new HttpRequestMessage(new HttpMethod(method), uri))
+            using var request = new HttpRequestMessage(new HttpMethod(method), uri);
+            if (headers != null)
             {
-                if (headers != null)
+                foreach (var header in headers)
                 {
-                    foreach (var header in headers)
-                    {
-                        request.Headers.Add(header.Key, header.Value);
-                    }
-                }
-
-                if (content != null)
-                {
-                    request.Content = new StringContent(content, Encoding.UTF8, "application/json");
-                }
-
-                using (var response = await _client.SendAsync(request).ConfigureAwait(false))
-                {
-                    var responseContent = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    return ((int)response.StatusCode, response.Headers, responseContent);
+                    request.Headers.Add(header.Key, header.Value);
                 }
             }
+
+            if (content != null)
+            {
+                request.Content = new StringContent(content, Encoding.UTF8, "application/json");
+            }
+
+            using var response = await _client.SendAsync(request).ConfigureAwait(false);
+            var responseContent = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+            return ((int)response.StatusCode, response.Headers, responseContent);
         }
 
         public Task<(int, IEnumerable<KeyValuePair<string, IEnumerable<string>>>, string)> SendAsync(string method, string uri, IEnumerable<KeyValuePair<string, string>> headers, string content = null) =>
