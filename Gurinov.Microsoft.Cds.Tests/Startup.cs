@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Dyrix.Tests
+namespace Gurinov.Microsoft.Cds.Tests
 {
     internal sealed class Startup
     {
@@ -12,7 +12,7 @@ namespace Dyrix.Tests
                 var configuration = new ConfigurationBuilder()
                     .AddUserSecrets<Startup>()
                     .Build()
-                    .GetSection(nameof(DynamicsClientOptions));
+                    .GetSection(nameof(CdsClientOptions));
 
                 options.ApiVersion = configuration[nameof(options.ApiVersion)];
                 options.ClientId = configuration[nameof(options.ClientId)];

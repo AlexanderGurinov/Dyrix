@@ -5,7 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.IdentityModel.Clients.ActiveDirectory;
 
-namespace Dyrix
+namespace Gurinov.Microsoft.Cds
 {
     internal sealed class AuthenticationHandler : DelegatingHandler
     {

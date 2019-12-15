@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Dyrix\Dyrix.csproj" />
+    <ProjectReference Include="..\Gurinov.Microsoft.Cds\Gurinov.Microsoft.Cds.csproj" />
   </ItemGroup>
 
 </Project>

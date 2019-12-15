@@ -1,6 +1,6 @@
-﻿namespace Dyrix
+﻿namespace Gurinov.Microsoft.Cds
 {
-    public sealed class DynamicsClientOptions
+    public sealed class CdsClientOptions
     {
         public string ApiVersion { get; set; }
         public string ClientId { get; set; }

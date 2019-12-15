@@ -2,14 +2,14 @@ using System;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Dyrix.Tests
+namespace Gurinov.Microsoft.Cds.Tests
 {
     public sealed class DynamicsClientTest : IClassFixture<DynamicsClientFixture>
     {
-        private readonly IDynamicsClient _dynamicsClient;
+        private readonly ICdsClient _dynamicsClient;
 
         public DynamicsClientTest(DynamicsClientFixture dynamicsClientFixture) => 
-            _dynamicsClient = dynamicsClientFixture?.DynamicsClient ?? throw new ArgumentNullException(nameof(DynamicsClient));
+            _dynamicsClient = dynamicsClientFixture?.DynamicsClient ?? throw new ArgumentNullException(nameof(CdsClient));
 
         [Fact]
         public async Task WhoAmI()

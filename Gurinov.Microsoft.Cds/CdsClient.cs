@@ -5,13 +5,13 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Dyrix
+namespace Gurinov.Microsoft.Cds
 {
-    public sealed class DynamicsClient : IDynamicsClient
+    public sealed class CdsClient : ICdsClient
     {
         private readonly HttpClient _client;
 
-        public DynamicsClient(HttpClient client) =>
+        public CdsClient(HttpClient client) =>
             _client = client ?? throw new ArgumentNullException(nameof(client));
 
         #region Send
@@ -27,11 +27,18 @@ namespace Dyrix
                 }
             }
 
-            if (content != null)
+            if (content == null)
             {
-                request.Content = new StringContent(content, Encoding.UTF8, "application/json");
+                return await SendAsync(request);
             }
 
+            using var stringContent = new StringContent(content, Encoding.UTF8, "application/json");
+            request.Content = stringContent;
+            return await SendAsync(request);
+        }
+
+        private async Task<(int, IEnumerable<KeyValuePair<string, IEnumerable<string>>>, string)> SendAsync(HttpRequestMessage request)
+        {
             using var response = await _client.SendAsync(request).ConfigureAwait(false);
             var responseContent = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
             return ((int)response.StatusCode, response.Headers, responseContent);
