@@ -16,4 +16,4 @@ jobs:
     - name: Build with dotnet
       run: dotnet pack
     - name: Push the package
-      run: dotnet nuget push .\bin\Debug\Gurinov.Microsoft.Cds.1.0.0.nupkg -k ${{ secrets.NugetApiKey }} -s https://api.nuget.org/v3/index.json
+      run: dotnet nuget push .\bin\Debug\*.nupkg -k ${{ secrets.NugetApiKey }} -s https://api.nuget.org/v3/index.json
