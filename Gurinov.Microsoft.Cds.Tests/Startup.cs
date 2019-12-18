@@ -7,7 +7,7 @@ namespace Gurinov.Microsoft.Cds.Tests
     internal sealed class Startup
     {
         public static readonly IServiceProvider Provider = new ServiceCollection()
-            .AddDynamicsClient(options =>
+            .AddCdsClient(options =>
             {
                 var configuration = new ConfigurationBuilder()
                     .AddUserSecrets<Startup>()

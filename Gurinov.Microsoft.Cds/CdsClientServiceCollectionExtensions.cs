@@ -7,17 +7,17 @@ namespace Gurinov.Microsoft.Cds
 {
     public static class CdsClientServiceCollectionExtensions
     {
-        public static IServiceCollection AddDynamicsClient(this IServiceCollection collection, Action<CdsClientOptions> configure)
+        public static IServiceCollection AddCdsClient(this IServiceCollection collection, Action<CdsClientOptions> configure)
         {
             if (collection == null) throw new ArgumentNullException(nameof(collection));
             if (configure == null) throw new ArgumentNullException(nameof(configure));
 
             var options = new CdsClientOptions();
             configure(options);
-            return collection.AddDynamicsClient(options);
+            return collection.AddCdsClient(options);
         }
 
-        private static IServiceCollection AddDynamicsClient(this IServiceCollection collection, CdsClientOptions options)
+        private static IServiceCollection AddCdsClient(this IServiceCollection collection, CdsClientOptions options)
         {
             if (options == null) throw new ArgumentNullException(nameof(options));
 

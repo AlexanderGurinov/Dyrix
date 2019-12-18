@@ -2,9 +2,9 @@
 
 namespace Gurinov.Microsoft.Cds.Tests
 {
-    public sealed class DynamicsClientFixture
+    public sealed class CdsClientFixture
     {
-        public ICdsClient DynamicsClient { get; } = Startup
+        public ICdsClient CdsClient { get; } = Startup
             .Provider
             .GetRequiredService<ICdsClient>();
     }
