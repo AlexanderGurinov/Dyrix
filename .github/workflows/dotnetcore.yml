@@ -18,4 +18,4 @@ jobs:
     - name: Pack
       run: dotnet pack --configuration Release
     - name: Push nupkg
-      run: dotnet nuget push *.nupkg --api-key ${{ secrets.NugetApiKey }} --source https://api.nuget.org/v3/index.json
+      run: dotnet nuget push .\Gurinov.Microsoft.Cds\bin\Release\*.nupkg --api-key ${{ secrets.NugetApiKey }} --source https://api.nuget.org/v3/index.json
