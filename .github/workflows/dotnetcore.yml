@@ -19,5 +19,3 @@ jobs:
       run: dotnet pack --configuration Release
     - name: Push nupkg
       run: dotnet nuget push *.nupkg --api-key ${{ secrets.NugetApiKey }} --source https://api.nuget.org/v3/index.json
-    - name: Push snupkg
-      run: dotnet nuget push *.snupkg --api-key ${{ secrets.NugetApiKey }} --source https://api.nuget.org/v3/index.json
