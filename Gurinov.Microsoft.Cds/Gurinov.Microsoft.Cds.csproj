@@ -8,7 +8,7 @@
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageReleaseNotes>Second release</PackageReleaseNotes>
     <Copyright>Copyright 2019 (c) Alexander Gurinov. All rights reserved.</Copyright>
-    <PackageTags>crm dynamics 365</PackageTags>
+    <PackageTags>cds dynamics365</PackageTags>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <PackageProjectUrl>https://github.com/AlexanderGurinov/Dyrix</PackageProjectUrl>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
