@@ -13,7 +13,9 @@ jobs:
       uses: actions/setup-dotnet@v1
       #with:
         #dotnet-version: 2.2.108
-    - name: Build with dotnet
-      run: dotnet pack
-    - name: Push the package
-      run: dotnet nuget push .\bin\Debug\*.nupkg -k ${{ secrets.NugetApiKey }} -s https://api.nuget.org/v3/index.json
+    - name: Build
+      run: dotnet build --configuration Release
+    - name: Pack
+      run: dotnet pack --configuration Release
+    - name: Push nupkg
+      run: dotnet nuget push .\Gurinov.Microsoft.Cds\bin\Release\*.nupkg --api-key ${{ secrets.NugetApiKey }} --source https://api.nuget.org/v3/index.json
