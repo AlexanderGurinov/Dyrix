@@ -17,8 +17,9 @@ namespace Gurinov.Microsoft.Cds
             return collection.AddCdsClient(options);
         }
 
-        private static IServiceCollection AddCdsClient(this IServiceCollection collection, CdsClientOptions options)
+        public static IServiceCollection AddCdsClient(this IServiceCollection collection, CdsClientOptions options)
         {
+            if (collection == null) throw new ArgumentNullException(nameof(collection));
             if (options == null) throw new ArgumentNullException(nameof(options));
 
             if (string.IsNullOrWhiteSpace(options.ApiVersion)) throw new ArgumentNullException(nameof(options.ApiVersion));
