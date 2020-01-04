@@ -14,11 +14,7 @@ namespace Gurinov.Microsoft.Cds.Tests
                     .Build()
                     .GetSection(nameof(CdsClientOptions));
 
-                options.ApiVersion = configuration[nameof(options.ApiVersion)];
-                options.ClientId = configuration[nameof(options.ClientId)];
-                options.ClientSecret = configuration[nameof(options.ClientSecret)];
-                options.DirectoryId = configuration[nameof(options.DirectoryId)];
-                options.Resource = configuration[nameof(options.Resource)];
+                configuration.Bind(options);
             })
             .BuildServiceProvider();
     }

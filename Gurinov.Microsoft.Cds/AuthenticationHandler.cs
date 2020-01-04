@@ -3,6 +3,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Clients.ActiveDirectory;
 
 namespace Gurinov.Microsoft.Cds
@@ -13,14 +14,18 @@ namespace Gurinov.Microsoft.Cds
         private readonly string _resource;
         private readonly ClientCredential _credential;
 
-        public AuthenticationHandler(AuthenticationContext context, string resource, ClientCredential credential)
+        public AuthenticationHandler(IOptions<CdsClientOptions> options)
         {
-            _context = context ?? throw new ArgumentNullException(nameof(context));
+            var optionsValue = options?.Value ?? throw new ArgumentNullException(nameof(options));
 
-            if (string.IsNullOrWhiteSpace(resource)) throw new ArgumentNullException(nameof(resource));
-            _resource = resource;
+            if (string.IsNullOrWhiteSpace(optionsValue.ClientId)) throw new ArgumentNullException(nameof(optionsValue.ClientId));
+            if (string.IsNullOrWhiteSpace(optionsValue.ClientSecret)) throw new ArgumentNullException(nameof(optionsValue.ClientSecret));
+            if (string.IsNullOrWhiteSpace(optionsValue.DirectoryId)) throw new ArgumentNullException(nameof(optionsValue.DirectoryId));
+            if (string.IsNullOrWhiteSpace(optionsValue.Resource)) throw new ArgumentNullException(nameof(optionsValue.Resource));
 
-            _credential = credential ?? throw new ArgumentNullException(nameof(credential));
+            _context = new AuthenticationContext($"https://login.windows.net/{optionsValue.DirectoryId}/");
+            _resource = optionsValue.Resource;
+            _credential = new ClientCredential(optionsValue.ClientId, optionsValue.ClientSecret);
         }
 
         protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
