@@ -7,15 +7,16 @@ namespace Gurinov.Microsoft.Cds
 {
     public static class CdsClientServiceCollectionExtensions
     {
-        public static IServiceCollection AddCdsClient(this IServiceCollection collection) => AddCdsClient(collection, options => { });
-        
-        public static IServiceCollection AddCdsClient(this IServiceCollection collection, Action<CdsClientOptions> configure)
+        public static IServiceCollection AddCdsClient(this IServiceCollection collection, Action<CdsClientOptions> configure = default)
         {
             if (collection == null) throw new ArgumentNullException(nameof(collection));
-            if (configure == null) throw new ArgumentNullException(nameof(configure));
 
-            collection.Configure(configure)
-                .AddTransient<AuthenticationHandler>()
+            if (configure != null)
+            {
+                collection.Configure(configure);
+            }
+
+            collection.AddTransient<AuthenticationHandler>()
                 .AddHttpClient<ICdsClient, CdsClient>()
                 .ConfigureHttpClient((provider, client) =>
                 {
